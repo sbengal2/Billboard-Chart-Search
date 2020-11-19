@@ -3,6 +3,7 @@ import os
 from re import split
 
 from pymongo import MongoClient
+import re
 
 # connecting to Mongo DataBase
 client = MongoClient('localhost', 27017, unicode_decode_error_handler='ignore')
@@ -20,6 +21,16 @@ def get_camel_case(input_phrase):
     return " ".join(words)
 
 
+def lyrics(song):
+    print("ENTER 1 TO DOWNLOAD LYRICS FOR THE SONG")
+    option = input("ENTER ANY NUMBER TO GO BACK: ")
+
+    if int(option) == 1:
+        os.system('clear')
+        print(song['Lyrics'])
+    else:
+        os.system('clear')
+
 # method to retrieve information of a song
 def get_song_info():
     song_name = get_camel_case(input("ENTER THE TITLE OF THE SONG: "))
@@ -35,6 +46,7 @@ def get_song_info():
             print("Not Found")
         else:
             print('GENRE: ' + ', '.join(map(str, song['genre'])))
+        lyrics(song)
 
     else:
         artist_name = get_camel_case(input("ENTER THE NAME OF THE ARTIST: "))
@@ -51,6 +63,7 @@ def get_song_info():
                 print("Not Found")
             else:
                 print('GENRE: ' + ', '.join(map(str, song['genre'])))
+            lyrics(song)
 
 
 # method to get all the songs by an artist
@@ -178,7 +191,8 @@ def get_all_hot_charts_for_year():
 # method to get all the songs of a genre
 def get_songs_by_genre():
     genre = (input("ENTER THE GENRE: ")).lower()
-    look_up = collection.count_documents({'genre': {'$in': [genre]}})
+    regex = re.compile(".*"+genre+".*", re.IGNORECASE)
+    look_up = collection.count_documents({'genre': {'$in': [regex]}})
     if look_up == 0:
         os.system('clear')
         print("SORRY, NO RECORDS FOUND FOR" + genre.upper() + "!")
@@ -187,7 +201,7 @@ def get_songs_by_genre():
         print(print("SHOWING " + str(look_up) + " RECORDS FOR " + "\"" + genre.upper() + "\""))
         print()
         songs = collection.aggregate([
-            {'$match': {'genre': {'$in': [genre]}}},
+            {'$match': {'genre': {'$in': [regex]}}},
             {'$group':
                 {'_id': {
                     'Song': '$Song',

@@ -24,7 +24,7 @@ def main_menu():
     print("                                     1. GET SONG INFORMATION                                            ")
     print("                                     2. GET SONGS OF ARTIST IN THE DATABASE                             ")
     print("                                     3. GET SONGS OF A GENRE IN THE DATABASE                            ")
-    print("                                     4. GET THE HOT CHARTS FOR A PARTICULAR YEAR (1958 - 2019)          ")
+    print("                                     4. GET ALL THE HOT CHARTS (1958 - 2019)                            ")
     print("                                     5. GET ALL POPULAR SONGS IN A YEAR                                 ")
     print("                                     6. GET ALL POPULAR ARTISTS IN A YEAR                               ")
     print("                                     7. GET ALL POPULAR GENRES IN A YEAR                                ")
