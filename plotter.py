@@ -27,6 +27,7 @@ def song_sentiment_plotter():
     plt.ylabel('Average Sentiment/Year')
     plt.title('Varying Sentiment Of Songs From 1958 -2019')
     plt.plot(year_list, avg_sentiment_list)
+    plt.legend(loc='best')
     plt.show()
 
 
@@ -69,5 +70,5 @@ def genre_sentiment_plotter():
 # plt.barh(year_list, pop_list,color='yellow',label="Pop")
 # plt.barh(year_list, rap_list,color='red',label="Rap")
 # plt.barh(year_list, edm,color='orange',label="EDM")
-#
+# plt.legend(loc='lower right')
 # plt.show()
