@@ -5,6 +5,7 @@ from queries import *
 
 
 def sub_menu():
+    print()
     print("\nENTER 1 FOR MAIN-MENU")
     option = input("ENTER 0 TO EXIT: ")
     os.system('clear')
