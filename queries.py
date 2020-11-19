@@ -22,6 +22,7 @@ def get_camel_case(input_phrase):
 
 
 def lyrics(song):
+    print()
     print("ENTER 1 TO DOWNLOAD LYRICS FOR THE SONG")
     option = input("ENTER ANY NUMBER TO GO BACK: ")
 
