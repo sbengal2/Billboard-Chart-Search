@@ -1,6 +1,6 @@
 # imports
 
-from plotter import song_sentiment_plotter
+from plotter import song_sentiment_plotter,genre_sentiment_plotter
 from queries import *
 
 
@@ -30,7 +30,8 @@ def main_menu():
     print("                                     6. GET ALL POPULAR ARTISTS IN A YEAR                               ")
     print("                                     7. GET ALL POPULAR GENRES IN A YEAR                                ")
     print("                                     8. PLOT SENTIMENT FOR SONGS                                        ")
-    print("                                     9. EXIT                                                            ")
+    print("                                     9. PLOT SENTIMENT FOR GENRES                                        ")
+    print("                                     0. EXIT                                                            ")
     choice = int(input("ENTER THE CHOICE: "))
     os.system('clear')
 
@@ -59,6 +60,9 @@ def main_menu():
         song_sentiment_plotter()
         sub_menu()
     elif choice == 9:
+        genre_sentiment_plotter()
+        sub_menu()
+    elif choice == 0:
         print("THANK YOU FOR USING \"THE BILLBOARD DATABASE\"!")
         exit(0)
     else:
