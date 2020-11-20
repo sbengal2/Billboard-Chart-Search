@@ -39,7 +39,7 @@ def get_song_info():
     if count == 0:
         print("SORRY, NO RECORD FOUND FOR: " + song_name.upper())
     elif count == 1:
-        song = collection.find_one({'Song': song_name}, {'Song': 1, 'Performer': 1, 'Lyrics': 1, 'genre': 1})
+        song = collection.find_one({'Song': song_name}, {'Song': 1, 'Performer': 1, 'Lyrics': 1, 'genre': 1,'active_year':1})
         os.system('clear')
         print('SONG: ' + song['Song'])
         print('ARTIST: ' + song['Performer'])
@@ -47,6 +47,7 @@ def get_song_info():
             print("Not Found")
         else:
             print('GENRE: ' + ', '.join(map(str, song['genre'])))
+        print('YEAR: '+str(song['active_year']))
         lyrics(song)
 
     else:
@@ -57,13 +58,14 @@ def get_song_info():
             print("SORRY, NO RECORD FOUND FOR: " + song_name.upper() + " BY " + artist_name.upper())
         else:
             song = collection.find_one({'Song': song_name, 'Performer': artist_name},
-                                       {'Song': 1, 'Performer': 1, 'Lyrics': 1, 'genre': 1})
+                                       {'Song': 1, 'Performer': 1, 'Lyrics': 1, 'genre': 1, 'active_year': 1})
             print('SONG: ' + song['Song'])
             print('ARTIST: ' + song['Performer'])
             if song.get('genre') is None:
                 print("Not Found")
             else:
                 print('GENRE: ' + ', '.join(map(str, song['genre'])))
+            print('YEAR: ' + str(song['active_year']))
             lyrics(song)
 
 
@@ -80,7 +82,8 @@ def get_songs_by_performer():
                 {'_id': {
                     'Song': '$Song',
                     'artist': '$Performer',
-                    'genre': '$genre'}}}
+                    'genre': '$genre',
+                    'year': '$active_year'}}}
         ])
         os.system('clear')
         print(print("SHOWING " + str(look_up) + " RECORDS FOR " + "\"" + performer_name.upper() + "\""))
@@ -92,6 +95,7 @@ def get_songs_by_performer():
                 print("Not Found")
             else:
                 print('GENRE: ' + ', '.join(map(str, song['_id']['genre'])))
+            print('YEAR: ' + str(song['_id']['year']))
             print()
 
 
@@ -114,6 +118,7 @@ def get_top_songs_in_year():
                 print("Not Found")
             else:
                 print('GENRE: ' + ', '.join(map(str, x['genre'])))
+            print('YEAR: ' + str(x['active_year']))
             print()
 
 
@@ -206,9 +211,11 @@ def get_songs_by_genre():
             {'$group':
                 {'_id': {
                     'Song': '$Song',
-                    'artist': '$Performer'}}}
+                    'artist': '$Performer',
+                    'year': '$active_year'}}}
         ])
         for song in songs:
             print('SONG: ' + song['_id']['Song'])
             print('ARTIST: ' + song['_id']['artist'])
+            print('YEAR: ' + str(song['_id']['year']))
             print()
